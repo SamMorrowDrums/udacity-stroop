@@ -1,0 +1,7 @@
+Sources:
+
+Udacity Statistics Course
+Stack Overflow - http://stackoverflow.com/
+Pandas documentation - http://pandas.pydata.org/
+Thinking, Fast and Slow, Daniel Kahneman - http://www.amazon.co.uk/Thinking-Fast-Slow-Daniel-Kahneman/dp/0141033576
+STUDIES OF INTERFERENCE IN SERIAL VERBAL REACTIONS, J. Ridley Stroop - http://psychclassics.yorku.ca/Stroop/
