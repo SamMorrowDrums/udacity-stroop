@@ -180,10 +180,11 @@ div#notebook {
 <h1 id="Stroop-Effect-Assignment">Stroop Effect Assignment<a class="anchor-link" href="#Stroop-Effect-Assignment">&#182;</a></h1><p><strong>1. What is our independent variable? What is our dependent variable?</strong></p>
 <p>Our independent variable is the Stroop Effect test type (congruent or incongruent). The dependent variable is the time it takes to complete the test.</p>
 <p><strong>2. What is an appropriate set of hypotheses for this task? What kind of statistical test do you expect to perform? Justify your choices.</strong></p>
-<p>$H_0$ The incongruent test will not alter the completion time, compared to the congruent test.</p>
-<p>$H_a$ The incongruent test will increase completion time, compared to the congruent test.</p>
-<p>$H_0$ $µ ≥ x̄$</p>
-<p>$H_a$ $µ < x̄$</p>
+<p>$H_0$ There will be no difference between the mean completion times for the incongruent and congruent test.</p>
+<p>$H_a$ There will be a significant increase in completion time for the incongruent test, compared to the congruent test.</p>
+<p>$H_0$ $µ_1 - µ_2 ≥ 0$ (the mean difference is greater than or equal to 0)</p>
+<p>$H_a$ $µ_1 - µ_2 < 0$ (the mean difference is less than 0)</p>
+<p><em>($µ_1$ = Population mean completion time for the congruent Stroop Test, $µ_2$ = Population mean completion time for the incongruent Stroop Test)</em></p>
 <p>I will perform a dependent, single-sample, one-tailed t-test because:</p>
 <ul>
 <li>We have a repeated-measure for individual participants so it is a dependent test</li>
@@ -196,7 +197,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[244]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># Import the Pandas library</span>
@@ -205,7 +206,7 @@ div#notebook {
 <span class="n">path</span> <span class="o">=</span> <span class="s">r&#39;stroopdata.csv&#39;</span>
 <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="c"># Create a derived data frame for the difference values</span>
-<span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Difference&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Incongruent&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Congruent&#39;</span><span class="p">]</span>
+<span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Difference&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Congruent&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Incongruent&#39;</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -219,20 +220,21 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>3. Report some descriptive statistics regarding this dataset. Include at least one measure of central tendency and at least one measure of variability.</strong></p>
-<p>$x̄_0$: 14.051</p>
-<p>µ: 14.051 (closest estimate we have to population mean)</p>
-<p>$x̄_1$: 22.016</p>
-<p>Mean Difference: 7.965</p>
+<p>$x̄_1$: 14.051</p>
+<p>$µ_1$: 14.051 (closest estimate we have to population mean)</p>
+<p>$x̄_2$: 22.016</p>
+<p>$µ_2$: 22.016 (closest estimate we have to population mean)</p>
+<p>Mean Difference: - 7.965</p>
 <p>Cogruent SD: 3.559</p>
-<p>Incongruent SD: 4.865</p>
-<p>Difference SD: 3.559</p>
+<p>Incongruent SD: 4.797</p>
+<p>Difference SD: 4.865</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[242]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># Use the Pandas descriptive statistics function</span>
@@ -247,7 +249,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[242]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[20]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -271,7 +273,7 @@ div#notebook {
       <th>mean</th>
       <td>14.051125</td>
       <td>22.015917</td>
-      <td>7.964792</td>
+      <td>-7.964792</td>
     </tr>
     <tr>
       <th>std</th>
@@ -283,31 +285,31 @@ div#notebook {
       <th>min</th>
       <td>8.630000</td>
       <td>15.687000</td>
-      <td>1.950000</td>
+      <td>-21.919000</td>
     </tr>
     <tr>
       <th>25%</th>
       <td>11.895250</td>
       <td>18.716750</td>
-      <td>3.645500</td>
+      <td>-10.258500</td>
     </tr>
     <tr>
       <th>50%</th>
       <td>14.356500</td>
       <td>21.017500</td>
-      <td>7.666500</td>
+      <td>-7.666500</td>
     </tr>
     <tr>
       <th>75%</th>
       <td>16.200750</td>
       <td>24.051500</td>
-      <td>10.258500</td>
+      <td>-3.645500</td>
     </tr>
     <tr>
       <th>max</th>
       <td>22.328000</td>
       <td>35.255000</td>
-      <td>21.919000</td>
+      <td>-1.950000</td>
     </tr>
   </tbody>
 </table>
@@ -332,7 +334,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[265]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># Visualise the congruent data as histogram, with bins of width 2.5s</span>
@@ -503,10 +505,10 @@ S1JDDHVJaoihLkkNMdQlqSH/H7x4JCZmZhQPAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[246]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">grouped2</span> <span class="o">=</span> <span class="n">dataFrame</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Incongruent&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">36</span><span class="p">]))[</span><span class="s">&#39;Congruent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">grouped2</span> <span class="o">=</span> <span class="n">dataFrame</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Incongruent&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">]))[</span><span class="s">&#39;Congruent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">grouped2</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;Incongruent Histogram&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;Time (s)&quot;</span><span class="p">)</span>
@@ -528,113 +530,127 @@ S1JDDHVJaoihLkkNMdQlqSH/H7x4JCZmZhQPAAAAAElFTkSuQmCC
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXsAAAEYCAYAAAC9Xlb/AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
-AAALEgAACxIB0t1+/AAAF19JREFUeJzt3Xm0NHV95/H3Rx7FDUWM+uCCoIkzIe6igmT04hbiQjKj
-oh5NXKJxztHBnEnmqOMoT5y4j1vcJkHHfSdq4oILYge3qCiIsmhMAoJgUFlEXFie7/xRdaG5T9/7
-9H1ub/f5vV/n9LnVVdX1+3b1rU9X/6q6OlWFJGn3dp15FyBJmj7DXpIaYNhLUgMMe0lqgGEvSQ0w
-7CWpAYa9NGNJnpfkmHnXobYY9lpTkrOSPGjedSyCJPsn2Z5k1e0mybYk7xoxfnuSOwBU1Uur6ulj
-tDdI8icbq1rqGPbamepvCy+9WTS1xrRJrquprfckW6a1bC0mw15jS/LkJF9M8sokFyb51ySHD03f
-J8nbkvywn/6RoWlPT/LPSX6a5O+T7Ds0bXuSZyT5XpKLkrxhaNp1krwqyY/79p41vHfd7/3+VZIv
-AT8H7rDy08jKve0kByf5ct/WKUkeMDRtkORF/fP8WZJPJ7l5P/nE/u/FSS5Nct9Rq2mM9Xh1PUmu
-n+TdSX7S1/O1JLdM8mLgPwFv6Nv6637++yX5epKL+3kPGVruAUlO7Ov+bJI3DrWz/KnkqUnOBo7v
-x38oyfn98v4xyYFDy3t7kjcl+WRfwxeSbE3yur7WM5LcfWfPV4vBsNd63Qc4E7g58ArgrUPT3gVc
-HzgQuCXwaoAkDwReAjwG2Bc4G3j/iuU+HDgIuCtwZJLf68f/KXA4cDfgnsAfsuMe7xOBpwF7AT9g
-x08jVw8nuQ3wceBFVXUz4C+AvxsKdIDHA0/un8P1+nmgC1+Am1bVXlX11RHrZwcjPm0M1/ck4CbA
-bYF9gGcAv6yq5wNfAJ7Zt3VUkn2ATwCv7ed9NfCJJDfrl/Ve4J/6adv69bJyXd0f+I/A8vr9BPCb
-wC2AbwLvWTH/Y4DnA78BXN4v/+t9G8f2NWgTMOy1XmdX1Vuru6jSO4F9+z3RfelC+b9W1SVVdWVV
-faF/zBOAt1bVKVV1OfA84JAk+w0t92VV9bOqOgf4PF24AxwJvLaqzquqi4GXcu295wLeXlVnVNX2
-qrpiRM3D8z8R+GRVfQqgqo4HTqJ7s1le3tuq6vtV9Svgg8DdRyxnLUf2e74XJbkIuHBEPcvLupzu
-jfO3qnNyVV26Su0PB75bVe/pn+v76d54j+jX5UHAC/t1/yXgH0bUvK2qfllVv+6f/9ur6rJ+vf0l
-cLckew2tiw/3Nf0a+AhwWVW9u3/9PwjcY8x1ojkz7LVeP1oeqKpf9IM3Bm4HXFhVl4x4zPLe/PLj
-LgN+Ctxm1HKBX/TLXH7sOUPTzh2x/HNGjFvN7YHHrAjjQ4Gtq9Tyy6FaxvWBqrrZ8G2Ned8FfBp4
-f9/99fIV/enDe+a3pvvkMuxsuvW4L936/9XQtFHr5epxfRfZy5J8P8klwL/1k35jaP4LhoZ/teL+
-rqwbzYlhr0k5B9gnyU1HTDsP2H/5TpIb0e3N/nCM5Z5P90ay7HYj5lnZVXEZcKOh+1uH5vkB8K4V
-YbxXVb1ijFrGOWBajP8JgH4v/EVV9TvA/YBHAH+8Sns/pHuzGnZ7ujfA8+nW/w2Gpu3HjoaX+QTg
-COBBVXVT4IB+/CwOcmvGDHtNRFWdDxwHvCnJ3kmum+T+/eT3AU9Jcrcke9L13/9TVa3cS1023M3x
-QeDZSW6dZG/gOewYgivD6RTgcUm2JDkIeNTQtHcDj0zy0CR79AdIl/q+/NWWt+zHwHbgjqtMX+ux
-o2fu2r5Lkj2AS4ErgKv6yf++oq1PAndK8vj+uT2Wrv/94/26PAnY1q/7Q+jeONZ6g7ox8Gvgwv4N
-+CUbeS5abIa91mPUaZjD9/+ILqzOpAuqowCq6nPAC4C/o9vLPwB43CrLWNnOMcBngFOBb9AdULyq
-qrav8fgX0IXkRXQHKq8+6FhV5wJ/APxPui6JHwB/zo7HAXaope+2ejHwpb4L6D7saLVTVUcuk+5T
-x4eAS4DTgQFd1w7A64BHpzuz6bVVdSFdgP858BO6A8eP6MdDt6d+CF0X2f8GPkB3TGBUDdAdczmb
-7hPDd4CvrFHnas9tU5yWK8i0frwkyf+jO6B0QVXdpR+3D90/4O2Bs4Aj+4Nu0liS/D7w5qraf961
-LLokHwBOr6q/nHctmr9p7tm/je7sjGHPBT5bVXcCPtffl1bVd7M8rO+2uA1wNPDhede1iJIclOSO
-/YHX36frj//ovOvSYpha2Pen3V20YvQRwDv64XfQnTMtrSV0XTEX0p0HfhrwwnkWtMC20p22einw
-GrrTYL8135K0KKbWjQPdt/aAjw1141y0fBpa/0WTC3dyWpokaQLmdoC2/1KGB3ckaQZmfTGkf0+y
-tap+1H/j8oJRMyXxTUCSdkFVjTxldtZ79v9Ady0Q+r+rHjyqqk17O/roo+dew2aqv3/FJ3g7eoLL
-mu3/ov871r+R21qmFvZJ3gd8GfgPSc5J8hTgZcBDknwPeGB/X5I0ZVPrxqmqx68y6cHTalOSNJrf
-oJ2CpaWleZewIZu9fliadwG7bLOve+tfXFM99XJXJalFrEvT0Z2Fu6ivd3baFyotiiTUghyglSTN
-gWEvSQ0w7CWpAYa9JDXAsJekBhj2ktQAw16SGmDYS1IDDHtJaoBhL0kNMOwlqQGGvSQ1wLCXpAYY
-9pLUAMNekhpg2EtSAwx7SWqAYS9JDTDsJakBhr0kNcCwl6QGGPaS1ADDXpIaYNhLUgMMe0lqgGEv
-SQ0w7CWpAYa9JDXAsJekBhj2ktQAw16SGmDYS1IDDHtJaoBhL0kNmEvYJ3lektOSfDvJe5PsOY86
-JKkVMw/7JPsDTwfuWVV3AfYAHjfrOiSpJVvm0ObPgCuAGya5Crgh8MM51CFJzZj5nn1VXQi8CvgB
-cB5wcVUdP+s6JKklM9+zT3JH4M+A/YFLgA8leUJVvWd4vm3btl09vLS0xNLS0uyKlKRNYDAYMBgM
-xpo3VTXdalY2mDwWeEhVPa2//0fAwVX1zKF5atZ1aX6SAIv6egf/F7VZJKGqMmraPM7GORM4OMkN
-0m3lDwZOn0MdktSMefTZfwt4J3AScGo/+m9nXYcktWTm3TjjsBunLXbjSJOxaN04kqQZM+wlqQGG
-vSQ1wLCXpAYY9pLUAMNekhpg2EtSAwx7SWqAYS9JDTDsJakBhr0kNcCwl6QGGPaS1ADDXpIaYNhL
-UgMMe0lqgGEvSQ0w7CWpAVvmXYAmo/tpv8Xkz/pJ82fY71YWMVQX901IaondOJLUAMNekhpg2EtS
-Awx7SWqAYS9JDTDsJakBhr0kNcCwl6QGGPaS1ADDXpIaYNhLUgMMe0lqgGEvSQ0w7CWpAYa9JDVg
-LmGfZO8kxyY5I8npSQ6eRx2S1Ip5/XjJ64BPVtWjk2wBbjSnOiSpCZn1T8YluSlwclXdYY15yp+y
-W5/uZwkXcZ1lpz9LuLi1wzj1S4siCVU18ufh5tGNcwDw4yRvS/LNJMckueEc6pCkZswj7LcA9wTe
-VFX3BC4DnjuHOiSpGfPosz8XOLeqvt7fP5YRYb9t27arh5eWllhaWppFbZK0aQwGAwaDwVjzzrzP
-HiDJicDTqup7SbYBN6iq5wxNt89+nRa339s+e2lW1uqzn1fY3w14C3A94F+Ap1TVJUPTDft1WtzA
-NOylWVm4sN8Zw379FjcwDXtpVhbtbBxJ0owZ9pLUAMNekhpg2EtSAwx7SWrATsM+ye+OGHfodMqR
-JE3DOHv2rx8x7g2TLkSSND2rXi4hySHA/YBbJPnvwPK5m3th948kbSprXRvnenTBvkf/d9nPgEdP
-syhJ0mTt9Bu0SfavqrNmU87VbfoN2nVa3G+h+g1aaVbW+gbtOFe93DPJMcD+Q/NXVT1wQvVJkqZs
-nLD/EPBmuguXXdWPc1dHkjaRccL+iqp689QrkSRNzThn1XwsyTOT7Jtkn+Xb1CuTJE3MOAdoz2JE
-t01VHTClmjxAuwsW9yCnB2ilWfF69g1Y3MA07KVZ2dDZOEmexOg9+3dOoDZJ0gyMc4D23lwT9jcA
-Hgh8EzDsJWmTWHc3TpK9gQ9U1e9NpyS7cXbF4naF2I0jzcqkf5bwF8DUDs5KkiZvnD77jw3dvQ5w
-IPDBqVUkSZq4cU69XOoHC7gS+EFVnTPVouzGWbfF7QqxG0ealQ1141TVADgTuAlwM+DXE61OkjR1
-4/xS1ZHAV4HHAEcCX0vymGkXJkmanHG6cU4FHlxVF/T3bwF8rqruOrWi7MZZt8XtCrEbR5qVjZ6N
-E+DHQ/d/yjW/WiVJ2gTG+VLVp4BPJ3kvXcg/FjhuqlVJkiZq1W6cJL8F3KqqvpjkUcCh/aSLgfdW
-1fenVpTdOOu2uF0hduNIs7JLF0JL8gngeVV16orxdwVeXFWPnHil17Rh2K/T4gamYS/Nyq722d9q
-ZdAD9OP8Bq0kbSJrhf3ea0y7/qQLkSRNz1phf1KSP105MsnTgW9MryRJ0qSt1We/FfgIcDnXhPu9
-gD2B/1xV50+tKPvs121x+73ts5dmZZd/qSrdVngYcGe6rfG0qjphKlVeu13Dfp0WNzANe2lW/FnC
-BixuYBr20qxM+nr2kqRNZm5hn2SPJCevuF6+JGkK5rln/2zgdBb387sk7TbmEvZJbgs8DHgLXlRN
-kqZuXnv2rwH+B7B9Tu1LUlNmHvZJHgFcUFUn4169JM3EOJc4nrT7AUckeRjdZRdukuSdVfXHwzNt
-27bt6uGlpSWWlpZmWaM0tu7U0cXlqaO7r8FgwGAwGGveuZ5nn+QBwF+svIKm59mv3+Keq777n2e/
-2evX7mPRz7P3P1GSpsxv0O4mFnfvcvffM97s9Wv3seh79pKkKTPsJakBhr0kNcCwl6QGGPaS1ADD
-XpIaYNhLUgMMe0lqgGEvSQ0w7CWpAYa9JDXAsJekBhj2ktQAw16SGmDYS1IDDHtJaoBhL0kNMOwl
-qQGGvSQ1wLCXpAYY9pLUAMNekhpg2EtSAwx7SWqAYS9JDTDsJakBhr0kNcCwl6QGGPaS1ADDXpIa
-YNhLUgMMe0lqgGEvSQ0w7CWpAYa9JDXAsJekBsw87JPcLsnnk5yW5DtJjpp1DZLUmlTVbBtMtgJb
-q+qUJDcGvgH8YVWdMTRPzbquzS4JsIjrLOzstVzc2qGF+rX7SEJVZdS0me/ZV9WPquqUfvjnwBnA
-rWddhyS1ZK599kn2B+4BfHWedUjS7m7LvBruu3COBZ7d7+Ffy7Zt264eXlpaYmlpaWa1Sdo8um60
-xTTtLrTBYMBgMBhr3pn32QMkuS7wceC4qnrtiOn22a/T4vYb7/593pu9/s1ucdf/7Nf9QvXZp3tl
-3gqcPiroJUmTN48++0OBJwKHJTm5vx0+hzokqRlz6cbZGbtx1m8zf5Rd3Nqhhfo3u8Vd/41340iS
-Zs+wl6QGGPaS1ADDXpIaYNhLUgMMe0lqgGEvSQ0w7CWpAYa9JDXAsJekBhj2ktQAw16SGmDYS1ID
-DHtJaoBhL0kNMOwlqQGGvSQ1YMu8C1gULf9CvaTdn2F/LYsYqov7JiRp87AbR5IaYNhLUgMMe0lq
-gGEvSQ0w7CWpAYa9JDXAsJekBhj2ktQAw16SGmDYS1IDDHtJaoBhL0kNMOwlqQGGvSQ1wLCXpAYY
-9pLUgLmEfZLDk5yZ5J+TPGceNUhSS2Ye9kn2AN4AHA4cCDw+yW/Puo7pGsy7gA0azLuADRrMu4AN
-GMy7gA0ZDAbzLmGDBvMuYGrmsWd/H+D7VXVWVV0BvB/4gznUMUWDeRewQYN5F7BBg3kXsAGDeRew
-IYb94ppH2N8GOGfo/rn9OEnSlMwj7BfxV70labeWqtlmb5KDgW1VdXh//3nA9qp6+dA8viFI0i6o
-qowaP4+w3wJ8F3gQcB7wNeDxVXXGTAuRpIZsmXWDVXVlkmcBnwb2AN5q0EvSdM18z16SNHt+g3YV
-SR6W5Kn98DuTXJDkmUPTj07ylf72hJ0sa4fH9+NfmuT4JCck2TPJgUlOTvLKadY+qu1VlnPjJJ9L
-8o/93/368VuTfCbJF5ef+6RqH66/b/+EcdpfT/1D0z+1XO8s6x/V/nrqT3LHJCf2498+6/pHtb/G
-so5NMkjy5ST37cftsO1Mo/71tL+e+vvxU9l2p6qqvI24AR8FrtcP7ws8CXjm0PQD+r/XBU7dybJG
-Pf7RwFEj5n0A8Mop1z6y7RHL2RPY2g8/FHh9P/wa4IF03XBfBvacVO3D9a+3/XHr7+8fChwHvGKS
-636c+ldrf53r/yH98FuAQ+aw/ndof5Vlben/3h741FrbzqTrX25j3PbXUf/Utt1p3tyzHyHJ3sAe
-VXU5QFWdv3Keqvq3fvBK4Kq1ljfq8cAjgf2SfD7JC4eb37Wq+wePUfsaba+s+9dV9aP+7hVc8zzv
-XVUnVNVVwEnAnSdR+8r6d6H9ndW/fWjyf6P7JvdwzdOuf2ft76z+5ef/E+Bm/fBNgJ/OqP6dtT/q
-OVw5NN9F/bjVtp2J1t+3dcU62h+rfuAIprDtTpthP9qdgLPGnPfPgA/tQhu3As6vqsOAA4c+Im70
-IMo4ta/W9khJrgccDby+H3XdocmXAPv0w5M4ALRD/etof6Shx/91f//+wCnAz1fMOu36d9b+SCOe
-/zHAS5OcAVxeVd/rx89q/a/W/mr1nwgcD7x6xaSV28606h+3/ZFGPP6WTGfbnSrDfrSxXrQkDwUO
-raqX7EIbFwMn9MMnAL+zvNhdWNawcWpfre3V/A3wxqr6l/7+FUPTbsoae3a7YFT9G21/5eOPAt7I
-dPbExql/ve2vfPxLgadU1W8DFyU5fCMFrzBO/etqv6ruDxwEvGp53Aa3nTWbm3T7Ix4/rW13qgz7
-0b4H7L9i3LVeyCR3Af4XXX/48PjbrrLMlf8IXwLu0Q/fA1jekDa6d7DT2le0fffltkfVnuRo4F+r
-angP6OtJDkv3nYl7AadtsOZh16p/Pe2vo/7fBD4IvBx4VJKHz7j+ke2vo/7hN7if0HUxzLL+ke2v
-Uv/yp7DL6I4DrLrtTMjK+sduf9z6md62O13zPmiwqDfg77nmwONLgO8AZwCv6scdD3wb+Hx/24vu
-ewsnjljWqMffkG6DHwD/d2jeJTZ+gHZnte/Q9qjagdvR7UWf0D/Hl/TjtwKfofunf+Ikax+ufz3t
-r6f+oekP4NoHaGdS/6j2x6z/xf34e9EdmB4AH+aag5HTrn/V9lepf0+u2T6+CBy2yrZzkynVf/0x
-2x+57a5R/9S23Wne5l7Aot6AhwFPXedj7g38yQbaPBD4CvDcVmu3futvvf5p3fxSlSQ1wD57SWqA
-YS9JDTDsJakBhr0kNcCwl6QGGPba7SW5eX9FwpOTnJ/k3H740iRvmFKbz0ry5DWmH5HkBdNoWxrF
-Uy/VlP4boZdW1crrpEyyjQDfpLtg25VrzHNyP88Vo+aRJsk9e7UoAEmWknysH96W5B39ddrPSvJf
-kvyfJKcmOa6/NANJ7tVf3/ykdNej3zpi+YcCZy4HfZKjkpyW5FtJ3gdQ3V7WV+guHSxNnWEvXeMA
-4DC6S9i+G/hsVd0V+CXw8P46Ka8HHlVVBwFvA148Yjm/S3fp5WXPAe5eVXcDnjE0/mvA/Sf+LKQR
-Zv4btNKCKuC4qroqyXeA61TVp/tp36a7uNad6K5weHzXC8MewHkjlrUf3bVUlp0KvDfJR+l+WGPZ
-ecAkr1gprcqwl66x/IMX25MM96Nvp9tWApxWVfcbY1nDVxp9ON0e/COB5ye5c1Vtp/tk7UEzzYTd
-OFJnnGuRfxe4RZKDobv8bZIDR8x3Nt2VOZcPxO5XVQPguXSXB75xP9++/bzS1Bn2alEN/R01DDvu
-cVd/1syjgZcnOYXubJpDRiz/i3Q/dgHdJ4J3JTmV7gyd11XVz/pp9wFO3MgTkcblqZfShA2dennf
-6n8LdcQ81+nnOWi10zOlSXLPXpqw/rTKY4AnrDHbI4BjDXrNinv2ktQA9+wlqQGGvSQ1wLCXpAYY
-9pLUAMNekhpg2EtSA/4/QsnWiGfjTYoAAAAASUVORK5CYII=
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXUAAAEYCAYAAACjl2ZMAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
+AAALEgAACxIB0t1+/AAAGoNJREFUeJzt3Xu4JFV57/HvjxmG+1WRGS84IwkxRMQLIrdoo8aDgiY5
+CtGg8ZKgySMPnhNzHiUenR0NGENQPJIYRYIKIiBechQRRelwEbnI4HDVeGEYcBTCICCCDMybP2r1
+npqe6t69d3d116z9+zxPP7u7avVab6+u/fbqVdVVigjMzCwPW0w6ADMzGx0ndTOzjDipm5llxEnd
+zCwjTupmZhlxUjczy4iTulmNJB0v6bRJx2Hzh5O6TZN0m6QXTzqOJpC0VNJ6ST3/RyRNSTqzYvl6
+SU8DiIgPRMQxA7TXlvTnw0Vt5qRuG4t0azwl42iqz7pR9lVt/S5pYV11W/M4qVslSW+UdLmkkySt
+lfQTSYeV1u8q6QxJd6b1XyqtO0bSf0q6R9K/S1pSWrde0lsl/VDSvZJOLa3bQtLJku5O7R1bHi2n
+0ezfS7oC+BXwtO5vF92jZ0kHSPpOaut6SS8srWtLel96nfdLukjS49LqS9PfX0p6QNLzq7ppgH6c
+jkfS1pLOkvRfKZ6rJT1B0gnA7wOnprb+Xyp/kKRrJP0ylT2wVO8ySZemuL8p6Z9L7XS+ZbxZ0irg
+4rT885LWpPr+Q9Lepfo+JelfJH0txXCZpMWSPpJivUXSs2Z6vTZ5TurWz/7ArcDjgH8ETi+tOxPY
+GtgbeALwIQBJLwJOBI4ElgCrgHO66j0c2A94JnCUpP+Rlr8FOAzYF3gO8EdsOoJ9HfAXwA7A7Wz6
+7WL6vqQnAV8F3hcRuwB/A3yhlLgBXgu8Mb2GRakMFEkWYKeI2CEirqron01UfHsox/cGYEfgycCu
+wFuBhyLi3cBlwNtSW8dJ2hW4ADgllf0QcIGkXVJdZwPfTeumUr9099ULgKcDnf69APgtYDfgOuCz
+XeWPBN4NPB54JNV/TWrj/BSDNZyTuvWzKiJOj+IEQZ8BlqSR5RKK5PuXEXFfRDwaEZel5xwNnB4R
+10fEI8DxwIGS9ijV+w8RcX9ErAYuoUjiAEcBp0TEzyLil8AH2Hg0HMCnIuKWiFgfEesqYi6Xfx3w
+tYj4OkBEXAxcS/Gh0qnvjIj4UUQ8DJwHPKuinn6OSiPZeyXdC6ytiKdT1yMUH5C/HYUVEfFAj9gP
+B34QEZ9Nr/Ucig/YV6a+3A94b+r7K4D/XxHzVEQ8FBG/Sa//UxHxYOq3vwP2lbRDqS++mGL6DfAl
+4MGIOCu9/+cBzx6wT2yCnNStn5937kTEr9Pd7YGnAGsj4r6K53RG553nPQjcAzypql7g16nOznNX
+l9bdUVH/6oplvTwVOLIr6R4MLO4Ry0OlWAZ1bkTsUr71KXsmcBFwTpq2+mDXfHd5pP1Eim8iZaso
++nEJRf8/XFpX1S/Ty9LU1j9I+pGk+4CfplWPL5W/q3T/4a7Hc+kbmwAndZuL1cCuknaqWPczYGnn
+gaTtKEandw5Q7xqKD4yOp1SU6Z5ieBDYrvR4canM7cCZXUl3h4j4xwFiGWTHZTD4iJ40qn5fRPwe
+cBBwBPBnPdq7k+JDqeypFB90ayj6f5vSuj3YVLnOo4FXAi+OiJ2AZWn5OHY22xg5qdusRcQa4ELg
+XyTtLGlLSS9Iqz8HvEnSvpK2ophf/25EdI86O8rTE+cBb5f0REk7A+9k02TXnYSuB14jaaGk/YBX
+ldadBbxC0kslLUg7Kltprr1XfR13A+uBPXus7/fc6sJF2/tIWgA8AKwDHkurf9HV1teAvSS9Nr22
+P6GYH/9q6strganU9wdSfED0+yDaHvgNsDZ90J44zGux5nJSt16qDm8sP349RVK6lSIhHQcQEd8C
+3gN8gWLUvgx4TY86uts5DfgGsBL4HsWOvcciYn2f57+HIhneS7HDcHrnX0TcAfwh8LcUUwm3A+9g
+03n6TWJJ000nAFekqZv92VSvQ0Ar66T4FvF54D7gZqBNMSUD8BHg1SqOJDolItZSJOp3AP9FsQP3
+iLQcipH3gRRTW+8HzqWYs6+KAYp9IqsovgHcCFzZJ85er22zONx1vlOdF8mQdDzFzqr1wA3Amzo7
+bcxmIullwMciYumkY2k6SecCN0fE3006Fpus2kbqkpYCxwDPiYh9gAVsPGIz20iaHnl5mm54ErAc
++OKk42oiSftJ2jPtAH0ZxXz5lycdl01endMv91N8Pd827eHflsF2ltn8JYoplLUUx1HfBLx3kgE1
+2GKKw0EfAD5McXjp9ycbkjVB3dMvbwFOpjgc6qKIeH1tjZmZWa3TL3sC/4vi8LYnAttLOrqu9szM
+DOo80c9+wHci4h4ASV+kODZ3+ugESd6bbmY2BxFReRhqnXPqtwIHSNomnQ/jJRSHcXUHNvHb8uXL
+s4wh9fAsb8vn8JzRvo9NeD+aEkcTYmhKHE2IoSlx9FNbUo9ip81nKH4ksTIt/kRd7ZmZWb3TL0Tx
+c+xBfpJtZmYj4F+UAq1Wa9IhNCKGQmvSATSmL5oQRxNigGbE0YQYoDlx9FLrIY0zNi7FJNvPXbEr
+Yxz9qxnn+cxsdCQRE9hRamZmY+akbmaWESd1M7OMOKmbmWXESd3MLCNO6mZmGXFSNzPLiJO6mVlG
+nNTNzDLipG5mlhEndTOzjDipm5llxEndzCwjTupmZhlxUjczy4iTuplZRpzUzcwyUmtSl/Q7klaU
+bvdJOq7ONs3M5rOxXc5O0hbAncD+EbE6LfPl7Grky9mZ5akpl7N7CfDjTkI3M7PRG2dSfw1w9hjb
+MzObd8Yy/SJpEcXUy94RcXdpuadfauTpF7M89Zt+WTimGF4GfK+c0Dumpqam77daLVqt1phCMjPb
+PLTbbdrt9kBlxzVSPwe4MCI+3bXcI/UaeaRulqd+I/Xak7qk7YBVwLKIeKBrnZN6jZzUzfI00aTe
+j5N6vZzUzfLUlEMazcysZk7qZmYZcVI3M8uIk7qZWUac1M3MMuKkbmaWESd1M7OMOKmbmWXESd3M
+LCNO6mZmGXFSNzPLiJO6mVlGnNTNzDLipG5mlhEndTOzjDipm5llxEndzCwjTupmZhlxUjczy0it
+SV3SzpLOl3SLpJslHVBne2Zm893Cmuv/CPC1iHi1pIXAdjW3Z2Y2r6muq8BL2glYERFP61MmfBX6
++kgCxtG/wu+j2fhIIiJUta7O6ZdlwN2SzpB0naTTJG1bY3tmZvNendMvC4HnAMdGxDWSTgHeBby3
+XGhqamr6fqvVotVq1RiSmdnmp91u0263Bypb5/TLYuDKiFiWHh8CvCsijiiV8fRLjTz9YpaniUy/
+RMTPgdWS9kqLXgLcVFd7ZmZW40gdQNK+wCeBRcCPgTdFxH2l9R6p18gjdbM89Rup15rUZ+KkXi8n
+dbM8TeroFzMzGzMndTOzjDipm5llxEndzCwjTupmZhlxUjczy4iTuplZRpzUzcwy4qRuZpYRJ3Uz
+s4w4qZuZZcRJ3cwsI07qZmYZcVI3M8uIk7qZWUac1M3MMuKkbmaWESd1M7OMOKmbmWVkYd0NSLoN
+uB94DFgXEfvX3aaZ2XxVe1KnuPJxKyLWjqEtM7N5bVzTL5VXvTYzs9EaR1IP4GJJ10o6ZgztmZnN
+W+OYfjk4ItZI2g34pqRbI+Kyzsqpqanpgq1Wi1arNYaQ6iWN94tJRIy1PTMbr3a7TbvdHqisxpkQ
+JC0HfhURJ6fHkWNCKpL6uF6Xeib18cXROwYzGz1JRETl6LHW6RdJ20raId3fDngpcEOdbZqZzWd1
+T7/sDnwpTUcsBD4bEd+ouU0zs3lrrNMvmzTu6ZdRtObpF7N5ZmLTL2ZmNl5O6mZmGXFSNzPLiJO6
+mVlGnNTNzDLipG5mlhEndTOzjDipm5llxEndzCwjTupmZhmZMalLOqRi2cH1hGNmZsMYZKT+0Ypl
+p446EDMzG17PszRKOhA4CNhN0l+z4ZJ0O+BpGzOzRup36t1FFAl8QfrbcT/w6jqDMjOzuZnx1LuS
+lkbEbbU07lPvjqI1n3rXbJ7pd+rdQS6SsZWk04ClpfIRES8aUXxmZjYigyT1zwMfAz4JPJaWeVhm
+ZtZAgyT1dRHxsdojMTOzoQ1yFMtXJL1N0hJJu3ZutUdmZmazNsiO0tuomG6JiGUDNSAtAK4F7oiI
+V3St847S4VvzjlKzeWaoHaURsXTI9t8O3MzGh0WamVkNZkzqkt5A9Uj9MwM898nAy4ETgL+eS4Bm
+Zja4QXaUPo8NSX0b4EXAdcCMSR34MPB/gB3nFJ2Zmc3KINMvx5YfS9oZOHem50k6ArgrIlZIavUq
+NzU1NX2/1WrRavUsapuhYl5/fDy3bzlqt9u02+2Bys64o3STJ0iLgBsjYq8Zyp0IvB54FNiaYrT+
+hYj4s1IZ7ygdvrVG7yhtSl+Y5aTfjtJBjn75SunhFsDewHkR8c5ZBPBC4G989EstrTUgoTYhhv5x
+mOVk2NMEnJz+BsWo+/aIWD2HOPzfZmZWs4GmXyQtZsMO06sj4q6RNO6R+ihaa8AouQkx9I/DLCf9
+RuqDXPnoKOAq4EjgKOBqSUeONkQzMxuFQebUVwIv6YzOJe0GfCsinjl04x6pj6K1BoySmxBD/zjM
+cjLUSJ3iikd3lx7fw4arIJmZWYMMsqP068BFks6mSOZ/AlxYa1RmZjYnPadfJP02sHtEXC7pVcDB
+adUvgbMj4kdDN+7pl1G01oCpjybE0D8Os5zM6Th1SRcAx0fEyq7lzwRO6D7mfI6BOakP31oDEmoT
+Yugfh1lO5jqnvnt3QgdIywY67a6ZmY1Xv6S+c591W486EDMzG16/pH6tpLd0L5R0DPC9+kIyM7O5
+6jenvhj4EvAIG5L4c4GtgD+OiDVDN+459VG01oD57CbE0D8Os5zM+YReKv4jDwWeQfGfeVNEfHuE
+gTmpD99aAxJqE2LoH4dZToY6S2OdnNRH0loDEmoTYugfh1lOhv1FqZmZbSac1M3MMuKkbmaWESd1
+M7OMOKmbmWXESd3MLCNO6mZmGak1qUvaWtJVkq6XdLOkD9TZnpnZfDfIRTLmLCIelnRoRPxa0kLg
+ckmHRMTldbZrZjZf1T79EhG/TncXAQuAtXW3aWY2X9We1CVtIel64BfAJRFxc91tmpnNV7VOvwBE
+xHrgWZJ2orjWaSsi2p31U1NT02VbrRatVmuo9opzjYyHzzNiZuPQbrdpt9sDlR3rCb0kvQd4KCL+
+KT0e+Qm9fBKrScTRhBj6x2GWk4md0EvS4yXtnO5vA/wBsKLONs3M5rO6p1+WAJ+WtAXFB8iZEfGt
+mts0M5u3sjufuqccJhFHE2LoH4dZTnw+dTOzecJJ3cwsI07qZmYZcVI3M8uIk7qZWUac1M3MMuKk
+bmaWESd1M7OMOKmbmWXESd3MLCNO6mZmGXFSNzPLiJO6mVlGnNTNzDLipG5mlhEndTOzjDipm5ll
+xEndzCwjTupmZhmpNalLeoqkSyTdJOlGScfV2Z6Z2XxX64WnJS0GFkfE9ZK2B74H/FFE3JLW+8LT
+WcTRhBj6x2GWk4ldeDoifh4R16f7vwJuAZ5YZ5tmZvPZ2ObUJS0Fng1cNa42zczmm4XjaCRNvZwP
+vD2N2KdNTU1N32+1WrRarXGEZPNMMQ00Hp4CslFrt9u02+2BytY6pw4gaUvgq8CFEXFK1zrPqWcR
+RxNiaEocnte3+k1sTl3Ff9LpwM3dCd3MzEav7jn1g4HXAYdKWpFuh9XcppnZvFX79Evfxj39kkkc
+TYihKXF4+sXqN7HpFzMzGy8ndTOzjDipm5llxEndzCwjTupmZhlxUjczy4iTuplZRpzUzcwy4qRu
+ZpYRJ3Uzs4w4qZuZZcRJ3cwsI07qZmYZcVI3M8uIk7qZWUac1M3MMuKkbmaWESd1M7OMOKmbmWWk
+1qQu6d8k/ULSDXW2Y2ZmhbpH6mcAh9XchpmZJbUm9Yi4DLi3zjbMzGwDz6mbmWVk4aQDmJqamr7f
+arVotVoTi8XMxkPSWNuLiEbGMKh2u0273R6orIZpaKAGpKXAVyJin4p1Mer2izeq3teUWur5Jo0v
+hqbE0YQYmhJH7xhsgyZsF02IYc61SURE5aeSp1/MzDJS9yGNnwO+A+wlabWkN9XZnpnZfFf79Evf
+xj39kkkcTYihKXF4+mUQTdgumhDDnGvz9IuZ2fzgpG5mlhEndTOzjDipm5llxEndzCwjTupmZhlx
+Ujczy4iTuplZRpzUzcwy4qRuZpYRJ3Uzs4w4qZuZZcRJ3cwsI07qZmYZcVI3M8uIk7qZWUac1M3M
+MuKkbmaWkbqvUXqYpFsl/aekd9bZlpmZ1ZjUJS0ATgUOA/YGXivpd+tqbzjtSQdAM2KAZsTRnnQA
+SXvSAdBuTz4GaEoc7UkHkLQnHUBfdY7U9wd+FBG3RcQ64BzgD2tsbwjtSQdAM2KAZsTRnnQASXvS
+ATQkmTYljvakA0jakw6grzqT+pOA1aXHd6RlZmZWkzqTetRYt5mZVVBEPblX0gHAVEQclh4fD6yP
+iA+Wyjjxm5nNQUSoanmdSX0h8APgxcDPgKuB10bELbU0aGZmLKyr4oh4VNKxwEXAAuB0J3Qzs3rV
+NlI3M7MJiIjN8ga8HHhzuv8Z4C7gbaX1U8BK4BLgpBnq6vX8S9LtPmCfrudMAT8FbgFOSnXcQ3HE
+z0mzqGPGGIHtgW8B/5H+7pGWLwa+AdwEfCKV+y7wALCqotzlwNFzaGc5cGW6bfL8rr44Bfg2cE2K
+419nUccwfdF5/veBC/v0xSjaGXS76NUXI9kuUtnzKY6x+w7w/KrtIi27KMVwZ0W5vttFn3Zms12c
+lOq4GvgVcNYot4s+MW60XfTpi1G0M6v3lOL3Oytmam+2t4kn5zkHDl8GFqX7S4A3sHFSXg4cPmBd
+mzy/tG4b4IaK5Z2NsTuGD3e/STPUMWOMwFbA4nT/pcBH0/0PAy9KfXElsEP6R30hcF5FuQVpQ9xq
+lu0sS3+3BFb264uuOt4BXDeLOobpi+XA4Z3tolOuoi+Gamc220WvvhjVdpHKLkx/nwp8vcd2sVXq
+9xcCH68o13e76NPOwNtFp1z6exTw01FuF31i3Gi7KLXV3RdDtTPX9zTFMdKkvlme+0XSzsCCiHgE
+ICLW9Cj6fkltSYf2q6/P8wGOAL5asXxr4HeBb0g6tFRH1R7pXnUMFGNE/CYifp4ergMeS/efB1xH
+8U95DbBXKidgfblcRHw7Ih4DrgWeMZt2IuKnadmjpTrLpvsCOKhUx2MpjkHqgOH6AuBE4BDg4FK5
+7r4YRTswwHZBj74YoI6BYkxxPpru7gjcm+53bxfPiOIHgKL4sJkuN8h20aud2WwX6X9kXVq+HfDw
+gHXAcH0Bpe0ilavqi1G0A7N/TyuPYBnKKD8hxnWj+LVq98ipe6S+S/r7BIqvPVvOUGevkfq5wLMr
+lr8Y+Gip/oX0Hqn3qmO2MS6i+Nq3Z3p8VacvgPcDf1CK7fZyuVId0+UGbae0/H8DfztgXyyi+Gr5
+iQHrGLYvdkl98clODD36Yqh25rhd9OqLUW0XlwK/oEjS/baL7wMPlsvNcrvYqJ05bheXAmuBM2va
+Lrr7otd20d0XQ7Uzh/e0E4dH6knMWCCiM5q4i2JO78mzbUTStsDTI2JFxer7B6m/Xx1ziPHjwD9H
+xI/T43Vs6IudKOb0ofiqv6KrHBXlBm0HSS+lGAGfWFG+qi8+TvGV975B6hi2L9LzA3io6/kb9cUI
++nwu20VVX4xsu4iIFwD7ASenRb22i+OAM7vKUVFu0HZmvV2kOt4CtAapY9i+6LNdbNQXI+jzUf+v
+z9nmmtR/CCztWrbR1xhJO6a/2wJPpzhWHkm9OrPqa9DLgQt6lF8DLC3Vv2a2dcwmRknLgZ9ExOdL
+i68BdgeWAc8Fbkrl1lD00XQ5SYem3w48l2IH2sDtSNoH+L8U30SqdPfFm4GfUDpJxkx1DNsX6fk/
+BPZMz19T1Rcj6HOY3XaxSV/MVMcsY9wy3X2QYq4YqreLzrp15XKz2C7K7SxKy2a7Xdydlj9MMTU0
+6u2iKsaq7aLcF+Vyc24nmc172m/KdzijHPaP8wb8O2nHDsWc2Y0Un4Anp2X/ClxBcQTEUWnZQuDS
+iro2eX5afg7wrNLj3Sl+Jdup/x6Kr7pHlepYBVwzizpmjBF4CsUG+G2KvecnpuWdoxfuAd5YKncd
+xZRDd7krgNfNop0T0vKLgRvYsHd/xz598VelOlYAV86ijrn0xQldz18L/GlFX3SXm1Ofz3K76O6L
+7454u9iq1J+XA4f22C62TmVWUJyDqbvcTNtFr3Zms10cXSp3A3DOiLeLXjF2bxe9+mKodubynqbl
+LXz0y3RnTB/SOIvnPA/487pioDhE6UrgXUPUOesY2fjwzoFicF+4L9wX4+2LivqH7ouqm398ZGaW
+kc11Tt3MzCo4qZuZZcRJ3cwsI07qZmYZcVI3M8uIk7plQ9LjJK1ItzWS7kj3H5B0ak1tHivpjX3W
+v1LSe+po26yKD2m0LKVfgz4QER+qsQ1R/LjpebHhJE9VZVakMuuqypiNkkfqljMBSGpJ+kq6PyXp
+05IulXSbpP8p6Z8krZR0YfrJPJKem86od62kr0taXFH/wcCtnYQu6ThJN0n6vqTPAUQxarqS4vS9
+ZrVzUrf5aBlwKPBK4CzgmxHxTIqTPh2ezu3xUeBVEbEfcAZwQkU9h1CcsrbjnRQ/E98XeGtp+dXA
+C0b+Kswq1HaNUrOGCoor4Dwm6UZgi4i4KK27geJEcXsBvwdcXMyesIB0gqcue1Cc/6NjJXC2pC9T
+nJWx42fAYaN8EWa9OKnbfNS5uMp6SeV57vUU/xMCboqIgwaoq3xmzsMpRuSvAN4t6RkRsZ7iG7F3
+XtlYePrF5ptBrjTzA2A3SQdAcapVSXtXlFtFcabDzg7RPSKiDbyL4vzk26dyS1JZs9o5qVvOovS3
+6j5sOoKOdJTKq4EPSrqe4uiVAyvqv5ziQglQjPDPlLSS4oiYj0TE/Wnd/hRXyjGrnQ9pNJuj0iGN
+z490vdyKMlukMvv1OuzRbJQ8Ujebo3S44mkUF4Do5QjgfCd0GxeP1M3MMuKRuplZRpzUzcwy4qRu
+ZpYRJ3Uzs4w4qZuZZcRJ3cwsI/8NLiEQLx58FlMAAAAASUVORK5CYII=
 "
 >
 </div>
@@ -650,7 +666,7 @@ cVd/1syjgZcnOYXubJpDRiz/i3Q/dgHdJ4J3JTmV7gyd11XVz/pp9wFO3MgTkcblqZfShA2dennf
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The incongruent data is more widely distributed, so I have upped the bin size of the histogram from 2.5 seconds to 4s. The data also appears to be on average higher than the data from the congruent test. Yet again, there is not enough data to exactly determine the population distribution, but it seems to be normally distributed, with a possible positive skew.</p>
+<p>The incongruent data is more widely distributed. The data also appears to be on average higher than the data from the congruent test. Yet again, there is not enough data to exactly determine the population distribution, but it seems to be normally distributed, with a possible positive skew.</p>
 
 </div>
 </div>
@@ -670,16 +686,19 @@ cVd/1syjgZcnOYXubJpDRiz/i3Q/dgHdJ4J3JTmV7gyd11XVz/pp9wFO3MgTkcblqZfShA2dennf
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Results">Results<a class="anchor-link" href="#Results">&#182;</a></h3><p>t-critical: 1.714</p>
-<p>SEM: .726</p>
-<p>$x̄ - µ =  7.965$</p>
-<p>Margin of Error: 1.502</p>
-<p>CI 95% = (20.514, 23.518)</p>
-<p>t-score: 10.962</p>
-<p>Cohen's d: 2.238</p>
-<p>$r^2$ = .841</p>
-<p>p &lt; .05</p>
-<h3 id="Determination">Determination<a class="anchor-link" href="#Determination">&#182;</a></h3><p>Our confidence level in $H_a$ is &gt; 99%</p>
+<h3 id="Results">Results<a class="anchor-link" href="#Results">&#182;</a></h3><p>Dependent‐Samples t Test</p>
+<p>n = 24 (two samples per n)</p>
+<p>df = 23</p>
+<p>t-critical: - 1.714</p>
+<p>SEM: .993</p>
+<p>$µ_1 - µ_2 = -7.965$</p>
+<p>Margin of Error: 1.702</p>
+<p>CI 95% = (-9.667, -6.263)</p>
+<p>t-score: -8.020</p>
+<p>Cohen's d: -1.637</p>
+<p>$r^2$ = .737</p>
+<p>p &lt; .001</p>
+<h3 id="Determination">Determination<a class="anchor-link" href="#Determination">&#182;</a></h3><p>Our confidence level in $H_a$ is &gt; 95%</p>
 <p>We can reject the null.</p>
 <h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h3><p>We can conclude that as the difference in times measured is statistically significant, the Stroop Effect is a likely explanation for our results.</p>
 <p>I expected this outcome, because from my own participation, and observing others, the anecdotal evidence suggested this effect was surprisingly strong.</p>
@@ -712,7 +731,7 @@ cVd/1syjgZcnOYXubJpDRiz/i3Q/dgHdJ4J3JTmV7gyd11XVz/pp9wFO3MgTkcblqZfShA2dennf
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[262]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">csv</span>
@@ -720,7 +739,7 @@ cVd/1syjgZcnOYXubJpDRiz/i3Q/dgHdJ4J3JTmV7gyd11XVz/pp9wFO3MgTkcblqZfShA2dennf
 <span class="n">incongruent</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="p">[]}</span>
 <span class="n">difference</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="p">[]}</span>
 <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">tCrit</span> <span class="o">=</span> <span class="mf">1.714</span>
+<span class="n">tCrit</span> <span class="o">=</span> <span class="o">-</span> <span class="mf">1.714</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;stroopdata.csv&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataFile</span><span class="p">:</span>
     <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">dataFile</span><span class="p">)</span>
     <span class="nb">next</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
@@ -728,7 +747,7 @@ cVd/1syjgZcnOYXubJpDRiz/i3Q/dgHdJ4J3JTmV7gyd11XVz/pp9wFO3MgTkcblqZfShA2dennf
         <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">congruent</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="n">incongruent</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-        <span class="n">difference</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">difference</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 </pre></div>
 
 </div>
@@ -738,7 +757,7 @@ cVd/1syjgZcnOYXubJpDRiz/i3Q/dgHdJ4J3JTmV7gyd11XVz/pp9wFO3MgTkcblqZfShA2dennf
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[258]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">scipy.stats</span>
@@ -749,18 +768,18 @@ cVd/1syjgZcnOYXubJpDRiz/i3Q/dgHdJ4J3JTmV7gyd11XVz/pp9wFO3MgTkcblqZfShA2dennf
 <span class="k">print</span> <span class="s">&#39;Average time with congruent Test&#39;</span><span class="p">,</span> <span class="n">congruent</span><span class="p">[</span><span class="s">&#39;ave&#39;</span><span class="p">]</span>
 <span class="k">print</span> <span class="s">&#39;Average time with incongruent Test&#39;</span><span class="p">,</span> <span class="n">incongruent</span><span class="p">[</span><span class="s">&#39;ave&#39;</span><span class="p">]</span>
 <span class="k">print</span> <span class="s">&#39;Average difference&#39;</span><span class="p">,</span> <span class="n">difference</span><span class="p">[</span><span class="s">&#39;ave&#39;</span><span class="p">]</span>
-<span class="n">congruent</span><span class="p">[</span><span class="s">&#39;variance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">congruent</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]:</span>
-    <span class="n">congruent</span><span class="p">[</span><span class="s">&#39;variance&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">val</span> <span class="o">-</span> <span class="n">congruent</span><span class="p">[</span><span class="s">&#39;ave&#39;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">difference</span><span class="p">[</span><span class="s">&#39;variance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">difference</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]:</span>
+    <span class="n">difference</span><span class="p">[</span><span class="s">&#39;variance&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">val</span> <span class="o">-</span> <span class="n">difference</span><span class="p">[</span><span class="s">&#39;ave&#39;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">congruent</span><span class="p">[</span><span class="s">&#39;sd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">congruent</span><span class="p">[</span><span class="s">&#39;variance&#39;</span><span class="p">])</span>
+<span class="n">congruent</span><span class="p">[</span><span class="s">&#39;sd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">difference</span><span class="p">[</span><span class="s">&#39;variance&#39;</span><span class="p">])</span>
 <span class="n">SEM</span> <span class="o">=</span> <span class="mf">3.559</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="n">difference</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">difference</span><span class="p">[</span><span class="s">&#39;ave&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">congruent</span><span class="p">[</span><span class="s">&#39;sd&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
 <span class="k">print</span> <span class="s">&#39;Standard Deviation&#39;</span><span class="p">,</span> <span class="n">congruent</span><span class="p">[</span><span class="s">&#39;sd&#39;</span><span class="p">]</span>
 <span class="k">print</span> <span class="s">&#39;t-Statistic&#39;</span><span class="p">,</span> <span class="n">difference</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">]</span>
-<span class="n">difference</span><span class="p">[</span><span class="s">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">difference</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">])</span>
+<span class="n">difference</span><span class="p">[</span><span class="s">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">difference</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">])</span>
 <span class="k">print</span> <span class="s">&#39;Probability of null hypothesis&#39;</span><span class="p">,</span> <span class="n">difference</span><span class="p">[</span><span class="s">&#39;p&#39;</span><span class="p">]</span>
-<span class="k">print</span> <span class="s">&#39;T is greater that T-Crit, and therefore reject null&#39;</span><span class="p">,</span> <span class="n">difference</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">tCrit</span>
+<span class="k">print</span> <span class="s">&#39;T is greater that T-Crit, and therefore reject null&#39;</span><span class="p">,</span> <span class="n">difference</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">tCrit</span>
 <span class="n">SEM</span>
 </pre></div>
 
@@ -777,16 +796,16 @@ cVd/1syjgZcnOYXubJpDRiz/i3Q/dgHdJ4J3JTmV7gyd11XVz/pp9wFO3MgTkcblqZfShA2dennf
 <pre>Number of records (n) 24
 Average time with congruent Test 14.051125
 Average time with incongruent Test 22.0159166667
-Average difference 7.96479166667
-Standard Deviation 3.55935795765
-t-Statistic 10.9624689189
-Probability of null hypothesis 2.89489659671e-28
+Average difference -7.96479166667
+Standard Deviation 4.86482691036
+t-Statistic -8.02070694411
+Probability of null hypothesis 5.55111512313e-16
 T is greater that T-Crit, and therefore reject null True
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[258]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[74]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -801,7 +820,275 @@ T is greater that T-Crit, and therefore reject null True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="prompt input_prompt">In&nbsp;[75]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">varianceFrame</span> <span class="o">=</span> <span class="p">(</span><span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Difference&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Difference&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">difVariance</span> <span class="o">=</span> <span class="n">varianceFrame</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">23</span>
+<span class="n">difSD</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">difVariance</span><span class="p">)</span>
+<span class="n">difSD</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[75]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>4.864826910359056</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="c"># T-Statistic</span>
+<span class="n">tStat</span> <span class="o">=</span> <span class="p">(</span><span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Congruent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Incongruent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">difSD</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">tStat</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[71]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-8.020706944109955</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">SEM</span> <span class="o">=</span> <span class="n">difSD</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">SEM</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[58]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9930286347783406</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Difference&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">SEM</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[59]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-8.020706944109957</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">marginOfError</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tCrit</span> <span class="o">*</span> <span class="n">SEM</span><span class="p">)</span>
+<span class="n">marginOfError</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[60]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1.7020510800100757</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="o">-</span><span class="n">marginOfError</span> <span class="o">+</span> <span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Difference&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[61]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-9.666842746676743</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">marginOfError</span> <span class="o">+</span> <span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Difference&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[67]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-6.262740586656591</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Difference&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">difSD</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[72]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-1.6372199491222625</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">tStat</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">tStat</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">23</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[73]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.7366364161445059</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Congruent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -815,7 +1102,7 @@ T is greater that T-Crit, and therefore reject null True
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[76]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[51]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -830,7 +1117,7 @@ T is greater that T-Crit, and therefore reject null True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Incongruent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -844,7 +1131,7 @@ T is greater that T-Crit, and therefore reject null True
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[77]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[49]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -859,7 +1146,7 @@ T is greater that T-Crit, and therefore reject null True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[86]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Difference&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -873,11 +1160,11 @@ T is greater that T-Crit, and therefore reject null True
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[86]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[37]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>7.964791666666667</pre>
+<pre>-7.964791666666667</pre>
 </div>
 
 </div>
@@ -1052,38 +1339,6 @@ sVkdkraMiIfz+/8H3BARX+lwWGbj5pK9WX3vziXsa4BtgP/f6YDMJsIlezOzEnDJ3sysBJzszcxK
 wMnezKwEnOzNzErAyd7MrASc7M3MSuD/AM24iK0AurwLAAAAAElFTkSuQmCC
 "
 >
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[261]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">varianceFrame</span> <span class="o">=</span> <span class="p">(</span><span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Congruent&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">dataFrame</span><span class="p">[</span><span class="s">&#39;Congruent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">**</span> <span class="mi">2</span>
-<span class="n">congruentVariance</span> <span class="o">=</span> <span class="n">varianceFrame</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">23</span>
-<span class="n">congruentSD</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">congruentVariance</span><span class="p">)</span>
-<span class="n">congruentSD</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[261]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>3.559357957645195</pre>
 </div>
 
 </div>
